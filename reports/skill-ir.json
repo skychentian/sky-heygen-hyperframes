@@ -1,0 +1,61 @@
+{
+  "schema_version": "2.0.0",
+  "name": "sky-heygen-hyperframes",
+  "title": "Sky HeyGen + HyperFrames",
+  "job_to_be_done": "Sky 的数字人口播成片工作流。只要用户提到 HeyGen、数字人、数字分身、克隆声音、HyperFrames、动效包装、横竖版封面、视频号封面、发布文案或“做成之前那种视频”，就使用本 Skill。它负责把口播文案变成 HeyGen 母版，再用 HyperFrames 做信息化视觉包装，用 image2 生成 Sky 个人 IP 风格封面，并在交付前完成内容、字幕、画面、音频、比例和文件规格质检。即使用户只说“做个数字人视频”，也优先按这套流程执行，除非用户明确要求只生成 HeyGen 母版。",
+  "trigger_surface": {
+    "description": "Sky 的数字人口播成片工作流。只要用户提到 HeyGen、数字人、数字分身、克隆声音、HyperFrames、动效包装、横竖版封面、视频号封面、发布文案或“做成之前那种视频”，就使用本 Skill。它负责把口播文案变成 HeyGen 母版，再用 HyperFrames 做信息化视觉包装，用 image2 生成 Sky 个人 IP 风格封面，并在交付前完成内容、字幕、画面、音频、比例和文件规格质检。即使用户只说“做个数字人视频”，也优先按这套流程执行，除非用户明确要求只生成 HeyGen 母版。",
+    "should_trigger": [
+      "Sky 的数字人口播成片工作流。只要用户提到 HeyGen、数字人、数字分身、克隆声音、HyperFrames、动效包装、横竖版封面、视频号封面、发布文案或“做成之前那种视频”，就使用本 Skill。它负责把口播文案变成 HeyGen 母版，再用 HyperFrames 做信息化视觉包装，用 image2 生成 Sky 个人 IP 风格封面，并在交付前完成内容、字幕、画面、音频、比例和文件规格质检。即使用户只说“做个数字人视频”，也优先按这套流程执行，除非用户明确要求只生成 HeyGen 母版。"
+    ],
+    "should_not_trigger": [],
+    "edge_cases": []
+  },
+  "workflow": {
+    "steps": [
+      "Understand the request.",
+      "Execute the main task.",
+      "Validate the result."
+    ],
+    "decision_points": [],
+    "failure_modes": []
+  },
+  "resources": {
+    "references": [
+      "references/cover-style.md",
+      "references/production-checklist.md"
+    ],
+    "scripts": [],
+    "assets": [],
+    "reports": []
+  },
+  "eval_plan": {
+    "trigger": [
+      "evals/evals.json"
+    ],
+    "output": [],
+    "adversarial": [],
+    "baseline": "without_skill"
+  },
+  "risk": {
+    "output_risk": "low",
+    "execution_risk": "low",
+    "trust_boundary": "team"
+  },
+  "governance": {
+    "owner": "Sky",
+    "maturity": "production",
+    "review_cadence": "quarterly",
+    "review_due": ""
+  },
+  "targets": [
+    "openai",
+    "claude",
+    "generic"
+  ],
+  "source_files": [
+    "SKILL.md",
+    "manifest.json",
+    "agents/interface.yaml"
+  ]
+}

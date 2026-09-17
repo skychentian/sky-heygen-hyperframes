@@ -1,0 +1,15 @@
+{
+  "name": "sky-heygen-hyperframes",
+  "version": "1.0.0",
+  "owner": "Sky",
+  "updated_at": "2026-08-07",
+  "status": "active",
+  "maturity_tier": "production",
+  "lifecycle_stage": "production",
+  "context_budget_tier": "library",
+  "review_cadence": "quarterly",
+  "category": "media-production",
+  "complexity_tier": "complex",
+  "target_platforms": ["openai", "claude", "generic"],
+  "factory_components": ["agents", "references", "evals", "reports", "failures", "examples"]
+}

@@ -1,0 +1,74 @@
+name: sky-heygen-hyperframes
+version: 1.0.0
+mode: production
+owner: Sky
+review_cadence: 每季度一次，或 HeyGen、HyperFrames、image2、平台封面规格发生变化时
+interface:
+  display_name: "Sky HeyGen + HyperFrames"
+  short_description: "用 HeyGen、HyperFrames 和 image2 生成 Sky 数字人视频及 3:4/4:3 封面。"
+  default_prompt: "Use $sky-heygen-hyperframes: validate the script, submit HeyGen once, stop at the master when requested; otherwise use HyperFrames, create 3:4/4:3 image2 covers, and run QA. Never publish without confirmation."
+target_platforms:
+  - openai
+  - claude
+  - generic
+capabilities:
+  - HeyGen 数字人口播母版生成
+  - HyperFrames 横屏/竖屏视觉包装
+  - image2 个人主页卡片与分享卡片封面生成
+  - 发布标题、正文、标签整理
+  - 口播、字幕、画面、音频、比例和文件规格质检
+inputs:
+  required:
+    - 口播文案
+    - production_mode: master_only | full_video | cover_copy_only
+  optional:
+    - video_orientation: portrait | landscape | both
+    - cover_outputs: personal_home_3x4 | share_4x3 | both
+    - screenshots_and_broll
+    - title_and_copy_constraints
+    - user_confirmed_avatar_or_voice
+output_contract:
+  - HeyGen 母版文件与真实视频 ID/状态（母版阶段或完整成片阶段）
+  - 带字幕 MP4、无字幕 MP4、SRT（任务需要母版时）
+  - HyperFrames 成片（任务要求完整包装时）
+  - 3:4 个人主页卡片封面，默认 1080×1440
+  - 4:3 分享卡片封面，默认 1440×1080
+  - 发布标题、正文和 6–8 个标签
+  - 素材清单与交付/质检报告
+input_files:
+  - file-backed fixture: 用户提供的口播文案
+  - file-backed fixture: 用户提供的截图、图表、B-roll 或人物参考
+  - file-backed fixture: 已认证 HeyGen 工作流产生的母版文件
+rollback_boundary: 删除本 Skill 目录即可回滚；不修改 HeyGen 账户配置，不写入 API Key，不自动发布，不覆盖既有成片
+exclusions:
+  - 不把弱文案直接送入 HeyGen 反复生成
+  - 不在只要求母版时调用 HyperFrames
+  - 不把视频 9:16/16:9 误当成封面 3:4/4:3
+  - 不生成或发布未经用户确认的对外内容
+  - 不把客户资料、私有链接、Cookie、密钥或个人绝对路径写入 Skill
+gate_selection:
+  content: 开头 3 秒、观点完整性、结尾收束
+  heygen: 单次提交、completed 状态、文件/字幕/音频检查
+  hyperframes: UTF-8、lint、runtime、layout、contrast、完整渲染
+  cover: 3:4/4:3 像素、人物/文字安全区、可读性
+  delivery: 标题/正文/标签不超出视频事实，未经确认不发布
+compatibility:
+  canonical_format: agent-skills
+  adapter_targets:
+    - openai
+    - claude
+    - generic
+  activation:
+    mode: manual_or_phrase_match
+    paths: []
+  execution:
+    context: inline
+    shell: bash
+  trust:
+    source_tier: local
+    remote_inline_execution: forbid
+    remote_metadata_policy: allow-metadata-only
+  degradation:
+    openai: "Uses SKILL.md and OpenAI interface metadata; host permissions remain external."
+    claude: "Uses SKILL.md and Claude adapter metadata; keep provider-specific execution outside the package."
+    generic: "Uses the neutral Agent Skills source and manual or catalog-based activation."

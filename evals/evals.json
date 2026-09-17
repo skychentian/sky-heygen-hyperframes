@@ -1,0 +1,23 @@
+{
+  "skill_name": "sky-heygen-hyperframes",
+  "evals": [
+    {
+      "id": "master-only",
+      "prompt": "用已经配置好的 HeyGen 数字人和声音，把下面口播文案生成母版，先不要调用 HyperFrames，也不要发布。完成后检查首尾、字幕、音频和视频规格。",
+      "expected_output": "只执行 HeyGen 母版阶段，单次提交，记录真实视频 ID 和 completed 状态，输出带字幕 MP4、无字幕 MP4、SRT，并报告质检结果。",
+      "files": []
+    },
+    {
+      "id": "full-production",
+      "prompt": "用之前 Sky 的风格把这条数字人口播做成完整视频：HeyGen 生成数字人，HyperFrames 做信息化包装，最后用 image2 做封面并给出发布文案。",
+      "expected_output": "按文案检查、HeyGen、HyperFrames、封面、发布文案、质检顺序执行；封面同时输出 3:4 个人主页卡片和 4:3 分享卡片，且不把视频比例与封面比例混用。",
+      "files": []
+    },
+    {
+      "id": "cover-only",
+      "prompt": "只根据这条已完成的视频和主题做两张 Sky 风格封面，不要重新生成数字人：一张用于个人主页卡片，一张用于分享卡片，并给我标题、正文和标签。",
+      "expected_output": "只做 image2 封面和发布文案；个人主页封面为 3:4，分享封面为 4:3；检查文字、人物、裁切和可读性。",
+      "files": []
+    }
+  ]
+}
